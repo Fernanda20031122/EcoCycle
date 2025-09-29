@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecocycle</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #c9f7c3, #a2d4ab);
+      color: #333;
+    }
+    header {
+      background: #1e5631;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header img {
+      height: 100px;
+      display: block;
+      margin: 0 auto 15px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      font-style: italic;
+      margin: 5px 0 0;
+      font-size: 1.2em;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+    .section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 300px;
+      background: #f5fff5;
+      border: 2px solid #1e5631;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #1e5631;
+    }
+    /* Estilos del juego */
+    #game {
+      text-align: center;
+    }
+    .items, .bins {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .item {
+      width: 70px;
+      height: 70px;
+      background: #eee;
+      border: 2px dashed #1e5631;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      font-size: 24px;
+    }
+    .bin {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+    }
+    .bin.plastico { background: #f39c12; }
+    .bin.papel { background: #2980b9; }
+    .bin.vidrio { background: #27ae60; }
+    .bin.organico { background: #8e44ad; }
+    #message {
+      font-size: 1.2em;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    footer {
+      background: #1e5631;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="Logo Ecocycle">
+    <h1>Ecocycle</h1>
+    <p>Reducir, Reutilizar, Reciclar: ¡Un planeta que se salva!</p>
+  </header>
+
+  <div class="container">
+
+    <div class="section">
+      <h2>Quiénes Somos</h2>
+      <p>
+        En nuestra empresa, nos dedicamos a la creación de productos de alta calidad
+        utilizando envases plásticos reciclados. A través de un proceso cuidadoso y
+        respetuoso con el medio ambiente, transformamos estos materiales en artículos útiles,
+        funcionales y de diseño único, contribuyendo así a la reducción del impacto ambiental.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h2>Misión</h2>
+        <ul>
+          <li>Recopilar y procesar materiales reciclables de manera eficiente y responsable.</li>
+          <li>Promover la conciencia y la educación sobre la importancia del reciclaje en la comunidad.</li>
+          <li>Trabajar con integridad y transformar en todos nuestros procesos operativos.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Visión</h2>
+        <p>
+          Ser en el 2025 el ejemplo en procesos de doble uso en reciclaje,
+          fomentando la reutilización y el compromiso con la naturaleza.
+        </p>
+      </div>
+    </div>
+
+    <div class="section" id="game">
+      <h2>Juego: Clasifica los Residuos ♻️</h2>
+      <p>Arrastra cada residuo al contenedor correcto.</p>
+
+      <div class="items">
+        <div class="item" draggable="true" data-type="plastico">🧴</div>
+        <div class="item" draggable="true" data-type="papel">📄</div>
+        <div class="item" draggable="true" data-type="vidrio">🍾</div>
+        <div class="item" draggable="true" data-type="organico">🍌</div>
+      </div>
+
+      <div class="bins">
+        <div class="bin plastico" data-accept="plastico">Plástico</div>
+        <div class="bin papel" data-accept="papel">Papel</div>
+        <div class="bin vidrio" data-accept="vidrio">Vidrio</div>
+        <div class="bin organico" data-accept="organico">Orgánico</div>
+      </div>
+
+      <p id="message"></p>
+    </div>
+
+    <div class="section">
+      <h2>Contacto</h2>
+      <p>📞 310 2805530</p>
+      <p>📧 Ecocycle17@gmail.com</p>
+      <p>🌐 www.Ecocycle.com</p>
+      <p>🏠 Calle 46A #22 d13</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Ecocycle - Todos los derechos reservados
+  </footer>
+
+  <script>
+    const items = document.querySelectorAll('.item');
+    const bins = document.querySelectorAll('.bin');
+    const message = document.getElementById('message');
+
+    items.forEach(item => {
+      item.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('type', item.dataset.type);
+      });
+    });
+
+    bins.forEach(bin => {
+      bin.addEventListener('dragover', e => {
+        e.preventDefault();
+      });
+
+      bin.addEventListener('drop', e => {
+        const type = e.dataTransfer.getData('type');
+        if (type === bin.dataset.accept) {
+          message.textContent = "✅ ¡Correcto! El residuo fue clasificado.";
+          message.style.color = "green";
+        } else {
+          message.textContent = "❌ Ups, ese no es el contenedor correcto.";
+          message.style.color = "red";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
